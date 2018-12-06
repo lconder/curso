@@ -16,7 +16,7 @@ module.exports = (app) => {
 
     api_routes.get('/user', user_controller.get_users);
     /**
-     @api {post} /user Crear una usuario
+     @api {post} /user Crear un usuario
      @apiName Create User
      @apiGroup User
      @apiPermission None
