@@ -23,8 +23,8 @@ module.exports = (app) => {
 
      @apiParam (body) {String} username Nombre de usuario.
      @apiParam (body) {String} email Email del usuario.
-     @apiParam (body) {String} password Email del usuario.
-     @apiParam (body) {String} facebook_id Email del usuario.
+     @apiParam (body) {String} password Contraseña del usuario.
+     @apiParam (body) {String} facebook_id ID de FB del usuario.
 
      @apiSuccess (200 Success) {Object} user
      @apiSuccess (200 Success) {String} user.username Nombre de usuario.
@@ -34,15 +34,51 @@ module.exports = (app) => {
      @apiSuccess (200 Success) {String} user.facebook_id  ID de Fb del usuario.
      @apiSuccess (200 Success) {String} user.ranking  Calificación del usuario.
 
-
      @apiUse ThreeErrors
      **/
     api_routes.post('/user', user_controller.create_user);
     api_routes.get('/user/:id', user_controller.get_user);
 
+    /**
+     @api {post} /concert Obtener conciertos
+     @apiName Get concerts
+     @apiGroup Concert
+     @apiPermission None
+     
+     @apiSuccess (200 Success) {Object} concerts
+     @apiSuccess (200 Success) {String} concerts.name Nombre del concierto.
+     @apiSuccess (200 Success) {String} concerts.place Lugar del concierto
+     @apiSuccess (200 Success) {String} concerts.address Dirección del concierto.
+     @apiSuccess (200 Success) {String} concerts.quota Capacidad del concierto.
+     @apiSuccess (200 Success) {String} concerts.date Fecha del concierto.
+     @apiSuccess (200 Success) {String} concerts.hour Hora del concierto.
+     @apiSuccess (200 Success) {String} concerts.cost Costo del concierto.
+
+     @apiUse ThreeErrors
+     **/
     api_routes.get('/concert', concert_controller.get_concerts);
     api_routes.post('/concert', concert_controller.create_concert);
 
+    /**
+     @api {post} /login Login
+     @apiName Login
+     @apiGroup Login
+     @apiPermission None
+     
+     @apiParam (body) {String} [email] Email del usuario (No se envía si se mandan facebook_id).
+     @apiParam (body) {String} [password] Contraseña del usuario (No se envía si se mandan facebook_id).
+     @apiParam (body) {String} [facebook_id] ID de FB del usuario (No se envía si se mandan email y password).
+
+     @apiSuccess (200 Success) {Object} user
+     @apiSuccess (200 Success) {String} user.username Nombre de usuario.
+     @apiSuccess (200 Success) {String} user.id  ID del usuario.
+     @apiSuccess (200 Success) {String} user.email  Email del usuario.
+     @apiSuccess (200 Success) {String} user.password  Password del usuario.
+     @apiSuccess (200 Success) {String} user.facebook_id  ID de Fb del usuario.
+     @apiSuccess (200 Success) {String} user.ranking  Calificación del usuario.
+
+     @apiUse ThreeErrors
+     **/
     api_routes.post('/login', login_controller.login);
 
     app.use('/', api_routes);
