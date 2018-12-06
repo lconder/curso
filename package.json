@@ -16,5 +16,12 @@
     "mongoose": "^5.3.14",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.7"
+  },
+  "apidoc": {
+    "title": "API Curso",
+    "url": "http://18.188.71.107:9001/",
+    "name": "_API",
+    "version": "0.0.1",
+    "description": "API REST para el curs"
   }
 }
