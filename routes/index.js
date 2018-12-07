@@ -2,6 +2,8 @@ module.exports = (app) => {
     
     const express = require('express');
     const api_routes = express.Router();
+    const joi = require('express-joi-middleware');
+    const inputs = require('../utils/inputs');
     /**
      * @apiDefine ThreeErrors
      * @apiError (400,401,500 Error) {String} message Descripción del error
@@ -13,6 +15,7 @@ module.exports = (app) => {
     const user_controller = require('../controllers/user');
     const login_controller = require('../controllers/login');
     const concert_controller = require('../controllers/concert');
+    const artist_controller = require('../controllers/artist');
 
     api_routes.get('/user', user_controller.get_users);
     /**
@@ -58,7 +61,8 @@ module.exports = (app) => {
      **/
     api_routes.get('/concert', concert_controller.get_concerts);
     api_routes.post('/concert', concert_controller.create_concert);
-
+    api_routes.put('/concert/:id', concert_controller.add_user);
+    
     /**
      @api {post} /login Login
      @apiName Login
@@ -80,6 +84,10 @@ module.exports = (app) => {
      @apiUse ThreeErrors
      **/
     api_routes.post('/login', login_controller.login);
+
+    api_routes.post('/artist', artist_controller.create_artist);
+
+
 
     app.use('/', api_routes);
 
