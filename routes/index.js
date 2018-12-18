@@ -86,6 +86,8 @@ module.exports = (app) => {
     api_routes.post('/login', login_controller.login);
 
     api_routes.post('/artist', artist_controller.create_artist);
+    api_routes.post('/artist/search/', artist_controller.search_artist);
+    api_routes.get('/artist/:id_spotify', artist_controller.get_artist_by_spotify_id);
 
 
 
