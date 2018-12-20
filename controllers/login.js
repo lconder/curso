@@ -10,7 +10,12 @@ async function login(req, res, next) {
         let search_criteria = (!facebook_id) ? {email, password} : {facebook_id}; 
 
         let user = await User.findOne(search_criteria);
-        res.status(200).json({user});
+
+        if(user)
+            res.status(200).json({user});
+        else
+            res.status(404).json({message: 'Usuario no encontrado'});
+
     } catch(e) {
         next(e);
     }

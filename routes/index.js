@@ -28,6 +28,7 @@ module.exports = (app) => {
      @apiParam (body) {String} email Email del usuario.
      @apiParam (body) {String} password Contraseña del usuario.
      @apiParam (body) {String} facebook_id ID de FB del usuario.
+     @apiParam (body) {String} [profile_image] Url a la imagen de perfil.
 
      @apiSuccess (200 Success) {Object} user
      @apiSuccess (200 Success) {String} user.username Nombre de usuario.
@@ -36,10 +37,11 @@ module.exports = (app) => {
      @apiSuccess (200 Success) {String} user.password  Password del usuario.
      @apiSuccess (200 Success) {String} user.facebook_id  ID de Fb del usuario.
      @apiSuccess (200 Success) {String} user.ranking  Calificación del usuario.
+     @apiSuccess (200 Success) {String} user.profile_image  URL de la imagen de perfil.
 
      @apiUse ThreeErrors
      **/
-    api_routes.post('/user', user_controller.create_user);
+    api_routes.post('/user', joi(inputs.create_user), user_controller.create_user);
     api_routes.get('/user/:id', user_controller.get_user);
 
     /**
@@ -83,7 +85,7 @@ module.exports = (app) => {
 
      @apiUse ThreeErrors
      **/
-    api_routes.post('/login', login_controller.login);
+    api_routes.post('/login', joi(inputs.login), login_controller.login);
 
     api_routes.post('/artist', artist_controller.create_artist);
     api_routes.post('/artist/search/', artist_controller.search_artist);
@@ -93,4 +95,4 @@ module.exports = (app) => {
 
     app.use('/', api_routes);
 
-}
+};

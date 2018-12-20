@@ -25,7 +25,7 @@ async function get_concerts(req, res, next) {
             {
                 $unwind: "$artist"
             }
-        ])
+        ]);
         res.status(200).json({concerts});
     } catch(e) {
         next(e);
