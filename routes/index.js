@@ -16,6 +16,7 @@ module.exports = (app) => {
     const login_controller = require('../controllers/login');
     const concert_controller = require('../controllers/concert');
     const artist_controller = require('../controllers/artist');
+    const place_controller = require('../controllers/place');
 
     api_routes.get('/user', user_controller.get_users);
     /**
@@ -91,6 +92,8 @@ module.exports = (app) => {
     api_routes.post('/artist/search/', artist_controller.search_artist);
     api_routes.get('/artist/:id_spotify', artist_controller.get_artist_by_spotify_id);
 
+
+    api_routes.post('/place/search/', place_controller.search_place);
 
 
     app.use('/', api_routes);
