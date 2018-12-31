@@ -1,5 +1,6 @@
 const Artist = require('../models/artist');
 const Spotify = require('node-spotify-api');
+const objects = require('../utils/objects');
 
 const spotify = new Spotify({
     id: '1b71aec0ab1f4c7c83e385aa73feba73',
@@ -25,15 +26,16 @@ async function get_artist_by_spotify_id(req, res, next) {
                         popularity: artist.popularity,
                         genres: artist.genres,
                         images: artist.images,
+                        followers: artist.followers.total
                     });
                     new_artist.save();
-                    res.send(new_artist);
+                    res.status(200).json(new_artist);
 
                 })
-                .catch( err => console.error(err) );
+                .catch( err => res.status(500).json(err) );
         } else {
             //El artista si existe en la BD, lo regresamos
-            res.send(artist);
+            res.status(200).json(artist);
         }
 
     } catch(e) {
@@ -60,8 +62,12 @@ async function search_artist(req, res, next) {
 
         spotify
         .search({ type: 'artist', query})
-        .then( artist => res.send(artist) )
-        .catch( err => console.error(err) );
+        .then( artists => {
+            let _artists = (artists.artists.items);
+            let fullArtists = _artists.map( artist => objects.tinyArtist(artist));
+            res.status(200).json({ artists: fullArtists })
+        })
+        .catch( err => res.status(500).json(err) );
 
     } catch(e) {
         next(e);

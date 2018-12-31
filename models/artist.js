@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const artistSchema = new Schema({
     name: {type: String},
     id_spotify : {type: String},
+    followers : {type: Number, default: 0},
     popularity: {type: Number},
     genres: {type: [String]},
     images: {type: [Object]},

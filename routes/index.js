@@ -89,6 +89,23 @@ module.exports = (app) => {
     api_routes.post('/login', joi(inputs.login), login_controller.login);
 
     api_routes.post('/artist', artist_controller.create_artist);
+
+    /**
+     @api {post} /artist/search Búsqueda de un artista
+     @apiName Search Artist
+     @apiGroup Artist
+     @apiPermission None
+
+     @apiParam (body) {String} query Cadena de texto del artista a buscar p/e Rels B.
+
+     @apiSuccess (200 Success) {Object[]} artists
+     @apiSuccess (200 Success) {String} artists.name Nombre del artista.
+     @apiSuccess (200 Success) {String} artists.id_spotify  del artista.
+     @apiSuccess (200 Success) {String} artists.image  URL de la imagen del artista.
+     @apiSuccess (200 Success) {String} artists.followers Nùmero de seguidores.
+
+     @apiUse ThreeErrors
+     **/
     api_routes.post('/artist/search/', artist_controller.search_artist);
     api_routes.get('/artist/:id_spotify', artist_controller.get_artist_by_spotify_id);
 
